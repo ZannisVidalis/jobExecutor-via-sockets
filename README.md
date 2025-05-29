@@ -7,3 +7,9 @@ It demonstrates how to manage and execute multiple user-defined jobs concurrentl
 * jobCommander: A client program used to interact with the server by sending commands over the network
 
 Jobs are submitted by the user through command-line instructions. They are executed according to the concurrency level, with server-side communication and task distribution handled through controller threads and a worker thread pool. Communication between client and server is established via TCP connections.
+
+# Compilation & Execution
+To compile the project run: make
+You need at least 2 terminals for this project
+
+In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [threadPoolSize]. In the rest terminals start sending commands using the jobCommander like this: ./jobCommander [serverName] [portNum] [jobCommanderInputCommand] 
