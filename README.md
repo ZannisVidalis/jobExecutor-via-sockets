@@ -48,3 +48,8 @@ In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [thr
 
 * Maintains a concurrency limit to control how many worker threads can run simultaneously.
 
+## jobCommander
+Sends commands over the network to the server
+
+### Commands
+* g
