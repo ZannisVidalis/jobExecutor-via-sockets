@@ -16,3 +16,5 @@ In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [thr
 
 # jobExecutorServer
 1)Initializes a pool of threadPoolSize worker threads. 2) Listens for incoming client connections on the given portnum. 3) For each connection, spawns a controller thread. 4) Maintains a shared queue for pending jobs. 5) Synchronization is handled using condition variables and mutexes to avoid busy-waiting. 6) Worker threads handle job execution and return output to clients via sockets.
+
+### Worker Thread
