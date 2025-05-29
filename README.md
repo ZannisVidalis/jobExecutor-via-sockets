@@ -18,3 +18,24 @@ In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [thr
 1)Initializes a pool of threadPoolSize worker threads. 2) Listens for incoming client connections on the given portnum. 3) For each connection, spawns a controller thread. 4) Maintains a shared queue for pending jobs. 5) Synchronization is handled using condition variables and mutexes to avoid busy-waiting. 6) Worker threads handle job execution and return output to clients via sockets.
 
 ### Worker Thread
+
+* Wait for available jobs using pthread_cond_wait.
+
+* When signaled and allowed by concurrency rules:
+
+  * Fetch a job from the queue.
+
+  * Fork a child process to:
+
+    * Redirect STDOUT to pid.output using dup2.
+
+    * Execute the job via execvp.
+
+  * The parent:
+
+    * Waits for the child to finish.
+
+    * Sends job output back to the client
+
+
+
