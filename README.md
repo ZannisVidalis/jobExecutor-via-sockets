@@ -23,7 +23,7 @@ In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [thr
 
 * When signaled and allowed by concurrency rules:
 
-  * Fetch a job from the queue.
+  * Fetch a job from the shared queue.
 
   * Fork a child process to:
 
@@ -37,5 +37,14 @@ In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [thr
 
     * Sends job output back to the client
 
+### Controller Thread
+* Handles client requests.
 
+* Parses and executes the client's command.
+
+* Sends the message response to the client
+
+* Uses a shared job queue (with mutex/condition variable synchronization).
+
+* Maintains a concurrency limit to control how many worker threads can run simultaneously.
 
