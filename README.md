@@ -52,4 +52,8 @@ In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [thr
 Sends commands over the network to the server
 
 ### Commands
-* g
+1. issueJob <command>: Submits a job.
+2. setConcurrency <N>: Sets the maximum number of concurrent jobs (i.e., active worker threads).
+3. stop <jobID>: Removes a job from the queue only if it's not already running.
+4. poll running / poll queued: Lists all currently running or queued jobs with their jobID, original command, and queue position.
+5. exit: Shuts down the server, deletes the jobExecutorServer.txt file, and closes named pipes.
