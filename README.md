@@ -3,16 +3,16 @@
 ## Overview
 This project is an implementation of a multithreaded job scheduling and execution system using sockets and threads. It consists of two main components:
 It demonstrates how to manage and execute multiple user-defined jobs concurrently over a network. This project was developed as part of a System Programming course.
-* jobExecutorServer: A multithreaded server that manages incoming job requests and dispatches them to worker threads
-* jobCommander: A client program used to interact with the server by sending commands over the network
+* jobExecutorServer: A multithreaded server that manages incoming job requests and dispatches them to worker threads.
+* jobCommander: A client program used to interact with the server by sending commands over the network.
 
 Jobs are submitted by the user through command-line instructions. They are executed according to the concurrency level, with server-side communication and task distribution handled through controller threads and a worker thread pool. Communication between client and server is established via TCP connections.
 
 ## Compilation & Execution
 To compile the project run: make
-You need at least 2 terminals for this project
+You need at least 2 terminals for this project.
 
-In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [threadPoolSize]. In the rest terminals start sending commands using the jobCommander like this: ./jobCommander [serverName] [portNum] [jobCommanderInputCommand] 
+In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [threadPoolSize]. In the rest terminals start sending commands using the jobCommander like this: ./jobCommander [serverName] [portNum] [jobCommanderInputCommand]. 
 
 ## jobExecutorServer
 1)Initializes a pool of threadPoolSize worker threads. 2) Listens for incoming client connections on the given portnum. 3) For each connection, spawns a controller thread. 4) Maintains a shared queue for pending jobs. 5) Synchronization is handled using condition variables and mutexes to avoid busy-waiting. 6) Worker threads handle job execution and return output to clients via sockets.
@@ -35,25 +35,25 @@ In Terminal 1, start the server: ./jobExecutorServer [portnum] [bufferSize] [thr
 
     * Waits for the child to finish.
 
-    * Sends job output back to the client
+    * Sends job output back to the client.
 
 ### Controller Thread
 * Handles client requests.
 
 * Parses and executes the client's command.
 
-* Sends the message response to the client
+* Sends the message response to the client.
 
 * Uses a shared job queue (with mutex/condition variable synchronization).
 
 * Maintains a concurrency limit to control how many worker threads can run simultaneously.
 
 ## jobCommander
-Sends commands over the network to the server
+Sends commands over the network to the server.
 
 ### Commands
 1. issueJob <command>: Submits a job.
 2. setConcurrency <N>: Sets the maximum number of concurrent jobs (i.e., active worker threads).
 3. stop <jobID>: Removes a job from the queue only if it's not already running.
-4. poll running / poll queued: Lists all currently running or queued jobs with their jobID, original command, and queue position.
-5. exit: Shuts down the server, deletes the jobExecutorServer.txt file, and closes named pipes.
+4. poll: Lists all currently queued jobs.
+5. exit: Shuts down the server.
